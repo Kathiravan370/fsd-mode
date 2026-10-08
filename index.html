@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Registration</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        #message {
+            color: green;
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Event Registration</h2>
+
+    <form id="registrationForm">
+
+        <label>Email</label>
+        <input type="email" id="email" required>
+
+        <label>Phone Number</label>
+        <input type="text" id="phone" required>
+
+        <label>Event Name</label>
+        <input type="text" id="event" required>
+
+        <label>Participation Type</label>
+        <select id="type" required>
+            <option value="">Select</option>
+            <option>Individual</option>
+            <option>Team</option>
+        </select>
+
+        <label>Number of Participants</label>
+        <input type="number" id="participants" min="1" required>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <p id="message"></p>
+
+</div>
+
+<script>
+document.getElementById("registrationForm").addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    let email = document.getElementById("email").value;
+    let phone = document.getElementById("phone").value;
+    let event = document.getElementById("event").value;
+    let type = document.getElementById("type").value;
+    let participants = document.getElementById("participants").value;
+
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let phonePattern = /^[0-9]{10}$/;
+
+    if (!email || !phone || !event || !type || !participants) {
+        alert("Please fill all fields");
+        return;
+    }
+
+    if (!emailPattern.test(email)) {
+        alert("Enter a valid email");
+        return;
+    }
+
+    if (!phonePattern.test(phone)) {
+        alert("Enter a valid 10-digit phone number");
+        return;
+    }
+
+    if (participants < 1) {
+        alert("Number of participants must be at least 1");
+        return;
+    }
+
+    document.getElementById("message").innerHTML =
+        "Registration successful! Thank you for registering.";
+
+    document.getElementById("registrationForm").reset();
+});
+</script>
+
+</body>
+</html>
